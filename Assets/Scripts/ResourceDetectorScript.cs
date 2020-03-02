@@ -16,16 +16,16 @@ public class ResourceDetectorScript : MonoBehaviour
     public bool debug_mode;
 
     // Função Gaussiana
-    public float sigma = 0.25f;
-    public float micro = 0.12f;
+    public float sigma_resource = 0.12f;
+    public float micro_resource = 0.5f;
 
     // Limiares X
-    public float x_superior = 0.75f;
-    public float x_inferior = 0.25f;
+    public float x_resource_superior = 0.75f;
+    public float x_resource_inferior = 0.25f;
 
     // Limiares Y
-    public float y_superior = 0.05f;
-    public float y_inferior = 0.6f;
+    public float y_resource_superior = 0.2f;
+    public float y_resource_inferior = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,13 +59,14 @@ public class ResourceDetectorScript : MonoBehaviour
 
     public float GetLinearOuput()
     {
-        if (strength > x_superior || strength < x_inferior || strength < y_inferior)
+        if (strength > x_resource_superior || strength < x_resource_inferior || strength < y_resource_inferior)
         {
-            return y_inferior;
+            Debug.Log("INFERIOR, " + y_resource_inferior);
+            return y_resource_inferior;
         }
-        else if(strength > y_superior)
+        else if(strength > y_resource_superior)
         {
-            return y_superior;
+            return y_resource_superior;
         }
 
         return strength;
@@ -73,23 +74,23 @@ public class ResourceDetectorScript : MonoBehaviour
 
     public virtual float GetGaussianOutput()
     {
-        if (strength > x_superior || strength < x_inferior)
+        if (strength > x_resource_superior || strength < x_resource_inferior)
         {
-            return 0.0f + y_inferior;
+            return y_resource_inferior;
         }
 
-        float v1 = strength - micro;
-        float v2 = 0.5f * ((v1 * v1) / (sigma * sigma));
-        float a = 1.0f / (sigma * (float)Math.Sqrt(2 * Math.PI));
+        float v1 = strength - micro_resource;
+        float v2 = 0.5f * ((v1 * v1) / (sigma_resource * sigma_resource));
+        float a = 1.0f / (sigma_resource * (float)Math.Sqrt(2 * Math.PI));
         float gaussian = a * (float)Math.Exp(-v2);
 
-        if(gaussian < y_inferior)
+        if(gaussian < y_resource_inferior)
         {
-            return y_inferior;
+            return y_resource_inferior;
         }
-        else if(gaussian > y_superior)
+        else if(gaussian > y_resource_superior)
         {
-            return y_superior;
+            return y_resource_superior;
         }
         
         return gaussian;
@@ -97,20 +98,20 @@ public class ResourceDetectorScript : MonoBehaviour
 
     public virtual float GetLogaritmicOutput()
     {
-        if (strength > x_superior || strength < x_inferior)
+        if (strength > x_resource_superior || strength < x_resource_inferior)
         {
-            return 0.0f + y_inferior;
+            return y_resource_inferior;
         }
 
         float log = (float)-Math.Log(strength);
 
-        if (log < y_inferior)
+        if (log < y_resource_inferior)
         {
-            return y_inferior;
+            return y_resource_inferior;
         }
-        else if (log > y_superior)
+        else if (log > y_resource_superior)
         {
-            return y_superior;
+            return y_resource_superior;
         }
 
         return log;

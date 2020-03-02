@@ -16,16 +16,16 @@ public class BlockDetectorScript : MonoBehaviour
     public bool debugMode;
 
     // Função Gaussiana
-    public float sigma = 0.12f;
-    public float micro = 0.5f;
+    public float sigma_block = 0.12f;
+    public float micro_block = 0.5f;
 
     // Limiares X
-    public float x_superior = 0.75f;
-    public float x_inferior = 0.25f;
+    public float x_block_superior = 0.75f;
+    public float x_block_inferior = 0.25f;
 
     // Limiares Y
-    public float y_superior = 0.05f;
-    public float y_inferior = 0.6f;
+    public float y_block_superior = 0.2f;
+    public float y_block_inferior = 0.02f;
 
     // Start is called before the first frame update
     void Start()
@@ -60,22 +60,62 @@ public class BlockDetectorScript : MonoBehaviour
 
     public float GetLinearOuput()
     {
+        if (strength > x_block_superior || strength < x_block_inferior || strength < y_block_inferior)
+        {
+            Debug.Log("INFERIOR, " + y_block_inferior);
+            return y_block_inferior;
+        }
+        else if (strength > y_block_superior)
+        {
+            return y_block_superior;
+        }
+
         return strength;
     }
 
     public virtual float GetGaussianOutput()
     {
-        float v1 = strength - micro;
-        float v2 = 0.5f * ((v1 * v1) / (sigma * sigma));
-        float a = 1.0f / (sigma * (float)Math.Sqrt(2 * Math.PI));
+        if (strength > x_block_superior || strength < x_block_inferior)
+        {
+            return y_block_inferior;
+        }
+
+        float v1 = strength - micro_block;
+        float v2 = 0.5f * ((v1 * v1) / (sigma_block * sigma_block));
+        float a = 1.0f / (sigma_block * (float)Math.Sqrt(2 * Math.PI));
         float gaussian = a * (float)Math.Exp(-v2);
+
+        if (gaussian < y_block_inferior)
+        {
+            return y_block_inferior;
+        }
+        else if (gaussian > y_block_superior)
+        {
+            return y_block_superior;
+        }
 
         return gaussian;
     }
 
     public virtual float GetLogaritmicOutput()
     {
-        return (float)-Math.Log(strength);
+        if (strength > x_block_superior || strength < x_block_inferior)
+        {
+            return y_block_inferior;
+        }
+
+        float log = (float)-Math.Log(strength);
+
+        if (log < y_block_inferior)
+        {
+            return y_block_inferior;
+        }
+        else if (log > y_block_superior)
+        {
+            return y_block_superior;
+        }
+
+        return log;
     }
 
     public List<ObjectInfo> GetVisibleObjects(string objectTag)
