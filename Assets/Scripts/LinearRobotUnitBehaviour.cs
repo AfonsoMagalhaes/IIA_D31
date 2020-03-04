@@ -18,7 +18,7 @@ public class LinearRobotUnitBehaviour : RobotUnit
         // get sensor data
         resouceAngle = resourcesDetector.GetAngleToClosestResource();
 
-        resourceValue = weightResource * resourcesDetector.GetLinearOuput();
+        resourceValue = weightResource * resourcesDetector.GetLogaritmicOutput();
 
         // get sensor data
         wallAngle = blockDetector.GetAngleToClosestObstacle();

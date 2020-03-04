@@ -6,8 +6,8 @@ using UnityEngine;
 public class ResourceDetectorScript : MonoBehaviour
 {
 
-    public float angleOfSensors = 10f;
-    public float rangeOfSensors = 10f;
+    public float angleOfSensors = 5f;
+    public float rangeOfSensors = 30f;
     protected Vector3 initialTransformUp;
     protected Vector3 initialTransformFwd;
     public float strength;
@@ -16,16 +16,16 @@ public class ResourceDetectorScript : MonoBehaviour
     public bool debug_mode;
 
     // Função Gaussiana
-    public float sigma_resource = 0.12f;
-    public float micro_resource = 0.5f;
+    public float sigma_resource;
+    public float micro_resource;
 
     // Limiares X
-    public float x_resource_superior = 0.75f;
-    public float x_resource_inferior = 0.25f;
+    public float x_resource_superior;
+    public float x_resource_inferior;
 
     // Limiares Y
-    public float y_resource_superior = 0.2f;
-    public float y_resource_inferior = 0.05f;
+    public float y_resource_superior;
+    public float y_resource_inferior;
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +68,7 @@ public class ResourceDetectorScript : MonoBehaviour
         {
             return y_resource_superior;
         }
-
+        Debug.Log("NORMAL, " + strength);
         return strength;
     }
 
@@ -76,6 +76,7 @@ public class ResourceDetectorScript : MonoBehaviour
     {
         if (strength > x_resource_superior || strength < x_resource_inferior)
         {
+            Debug.Log("INFERIOR, " + y_resource_inferior);
             return y_resource_inferior;
         }
 
@@ -86,13 +87,15 @@ public class ResourceDetectorScript : MonoBehaviour
 
         if(gaussian < y_resource_inferior)
         {
+            Debug.Log("INFERIOR, " + y_resource_inferior);
             return y_resource_inferior;
         }
         else if(gaussian > y_resource_superior)
         {
+            Debug.Log("SUPERIOR, " + y_resource_superior);
             return y_resource_superior;
         }
-        
+        Debug.Log("NORMAL, " + gaussian);
         return gaussian;
     }
 
@@ -100,6 +103,7 @@ public class ResourceDetectorScript : MonoBehaviour
     {
         if (strength > x_resource_superior || strength < x_resource_inferior)
         {
+            Debug.Log("INFERIOR, " + y_resource_inferior);
             return y_resource_inferior;
         }
 
@@ -107,13 +111,15 @@ public class ResourceDetectorScript : MonoBehaviour
 
         if (log < y_resource_inferior)
         {
+            Debug.Log("INFERIOR, " + y_resource_inferior);
             return y_resource_inferior;
         }
         else if (log > y_resource_superior)
         {
+            Debug.Log("SUPERIOR, " + y_resource_superior);
             return y_resource_superior;
         }
-
+        Debug.Log("NORMAL, " + log);
         return log;
     }
 

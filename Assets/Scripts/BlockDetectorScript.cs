@@ -25,7 +25,7 @@ public class BlockDetectorScript : MonoBehaviour
 
     // Limiares Y
     public float y_block_superior = 0.2f;
-    public float y_block_inferior = 0.02f;
+    public float y_block_inferior = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +62,6 @@ public class BlockDetectorScript : MonoBehaviour
     {
         if (strength > x_block_superior || strength < x_block_inferior || strength < y_block_inferior)
         {
-            Debug.Log("INFERIOR, " + y_block_inferior);
             return y_block_inferior;
         }
         else if (strength > y_block_superior)
