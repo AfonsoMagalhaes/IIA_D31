@@ -19,14 +19,6 @@ public class ResourceDetectorScript : MonoBehaviour
     public float sigma_resource;
     public float micro_resource;
 
-    // Limiares X
-    public float x_resource_superior;
-    public float x_resource_inferior;
-
-    // Limiares Y
-    public float y_resource_superior;
-    public float y_resource_inferior;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -59,67 +51,21 @@ public class ResourceDetectorScript : MonoBehaviour
 
     public float GetLinearOuput()
     {
-        if (strength > x_resource_superior || strength < x_resource_inferior || strength < y_resource_inferior)
-        {
-            Debug.Log("INFERIOR, " + y_resource_inferior);
-            return y_resource_inferior;
-        }
-        else if(strength > y_resource_superior)
-        {
-            return y_resource_superior;
-        }
-        Debug.Log("NORMAL, " + strength);
         return strength;
     }
 
     public virtual float GetGaussianOutput()
     {
-        if (strength > x_resource_superior || strength < x_resource_inferior)
-        {
-            Debug.Log("INFERIOR, " + y_resource_inferior);
-            return y_resource_inferior;
-        }
-
         float v1 = strength - micro_resource;
         float v2 = 0.5f * ((v1 * v1) / (sigma_resource * sigma_resource));
         float a = 1.0f / (sigma_resource * (float)Math.Sqrt(2 * Math.PI));
         float gaussian = a * (float)Math.Exp(-v2);
-
-        if(gaussian < y_resource_inferior)
-        {
-            Debug.Log("INFERIOR, " + y_resource_inferior);
-            return y_resource_inferior;
-        }
-        else if(gaussian > y_resource_superior)
-        {
-            Debug.Log("SUPERIOR, " + y_resource_superior);
-            return y_resource_superior;
-        }
-        Debug.Log("NORMAL, " + gaussian);
         return gaussian;
     }
 
     public virtual float GetLogaritmicOutput()
     {
-        if (strength > x_resource_superior || strength < x_resource_inferior)
-        {
-            Debug.Log("INFERIOR, " + y_resource_inferior);
-            return y_resource_inferior;
-        }
-
         float log = (float)-Math.Log(strength);
-
-        if (log < y_resource_inferior)
-        {
-            Debug.Log("INFERIOR, " + y_resource_inferior);
-            return y_resource_inferior;
-        }
-        else if (log > y_resource_superior)
-        {
-            Debug.Log("SUPERIOR, " + y_resource_superior);
-            return y_resource_superior;
-        }
-        Debug.Log("NORMAL, " + log);
         return log;
     }
 

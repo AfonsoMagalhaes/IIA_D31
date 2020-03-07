@@ -107,17 +107,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angleOfSensors: 5
-  rangeOfSensors: 30
+  rangeOfSensors: 50
   strength: 0
   angle: 0
   numObjects: 0
   debug_mode: 1
   sigma_resource: 0.12
-  micro_resource: 0.5
-  x_resource_superior: 10
+  micro_resource: 0.05
+  x_resource_superior: 100
   x_resource_inferior: 0
-  y_resource_superior: 0.6
-  y_resource_inferior: 0.05
+  y_resource_superior: 100
+  y_resource_inferior: 0
 --- !u!1 &3965723576953268335
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,10 +249,10 @@ MonoBehaviour:
   resourcesDetector: {fileID: 7314612682239532039}
   blockDetector: {fileID: 5637197663032795224}
   debugMode: 1
-  weightResource: 1
+  weightResource: 1.5
   resourceValue: 0
   resouceAngle: 0
-  weightWall: 0.3
+  weightWall: 0.5
   wallValue: 0
   wallAngle: 0
 --- !u!1 &4008591218284894329
@@ -361,18 +361,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0a6ac58e2ef4bb184d9c065cbf536b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleOfSensors: 10
-  rangeOfSensors: 10
+  angleOfSensors: 5
+  rangeOfSensors: 50
   strength: 0
   angleToClosestObj: 0
   numObjects: 0
   debugMode: 1
   sigma_block: 0.12
   micro_block: 0.5
-  x_block_superior: 0.75
-  x_block_inferior: 0.25
-  y_block_superior: 0.2
-  y_block_inferior: 0.05
+  x_block_superior: 100
+  x_block_inferior: 0
+  y_block_superior: 100
+  y_block_inferior: 0
 --- !u!1 &8808777386705767494
 GameObject:
   m_ObjectHideFlags: 0

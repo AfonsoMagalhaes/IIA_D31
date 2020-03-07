@@ -16,16 +16,8 @@ public class BlockDetectorScript : MonoBehaviour
     public bool debugMode;
 
     // Função Gaussiana
-    public float sigma_block = 0.12f;
-    public float micro_block = 0.5f;
-
-    // Limiares X
-    public float x_block_superior = 0.75f;
-    public float x_block_inferior = 0.25f;
-
-    // Limiares Y
-    public float y_block_superior = 0.2f;
-    public float y_block_inferior = 0.05f;
+    public float sigma_block;
+    public float micro_block;
 
     // Start is called before the first frame update
     void Start()
@@ -60,60 +52,21 @@ public class BlockDetectorScript : MonoBehaviour
 
     public float GetLinearOuput()
     {
-        if (strength > x_block_superior || strength < x_block_inferior || strength < y_block_inferior)
-        {
-            return y_block_inferior;
-        }
-        else if (strength > y_block_superior)
-        {
-            return y_block_superior;
-        }
-
         return strength;
     }
 
     public virtual float GetGaussianOutput()
     {
-        if (strength > x_block_superior || strength < x_block_inferior)
-        {
-            return y_block_inferior;
-        }
-
         float v1 = strength - micro_block;
         float v2 = 0.5f * ((v1 * v1) / (sigma_block * sigma_block));
         float a = 1.0f / (sigma_block * (float)Math.Sqrt(2 * Math.PI));
         float gaussian = a * (float)Math.Exp(-v2);
-
-        if (gaussian < y_block_inferior)
-        {
-            return y_block_inferior;
-        }
-        else if (gaussian > y_block_superior)
-        {
-            return y_block_superior;
-        }
-
         return gaussian;
     }
 
     public virtual float GetLogaritmicOutput()
     {
-        if (strength > x_block_superior || strength < x_block_inferior)
-        {
-            return y_block_inferior;
-        }
-
         float log = (float)-Math.Log(strength);
-
-        if (log < y_block_inferior)
-        {
-            return y_block_inferior;
-        }
-        else if (log > y_block_superior)
-        {
-            return y_block_superior;
-        }
-
         return log;
     }
 
