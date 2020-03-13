@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LinearRobotUnitBehaviour : RobotUnit
 {
+    public enum ActivationType { None, Linear, Gaussian, LogaritmNegative};
+
     public float weightResource;
     public float resourceValue;
     public float resouceAngle;
@@ -20,36 +22,105 @@ public class LinearRobotUnitBehaviour : RobotUnit
     public float y_superior;
     public float y_inferior;
 
+    //funcao de output
+    public ActivationType activationResources;
+    public ActivationType activationBlocks;
+
     void Update()
     {
 
-        // get sensor data
-        wallAngle = blockDetector.GetAngleToClosestObstacle();
-        wallValue = weightWall * GetResourceOrBlockValue(blockDetector.GetLinearOuput(), blockDetector.GetLinearOuput());
-        
-        // apply to the wall
-        applyForce(wallAngle + 180, wallValue); // move away
-
-        // get sensor data
-        resouceAngle = resourcesDetector.GetAngleToClosestResource();
-        resourceValue = weightResource * GetResourceOrBlockValue(resourcesDetector.GetLinearOuput(), resourcesDetector.GetLinearOuput());
-        
-        // apply to the ball
-        applyForce(resouceAngle, resourceValue); // go towards
-
-    }
-
-    public float GetResourceOrBlockValue(float strength, float output)
-    {
-        if (strength > x_superior || strength < x_inferior || output < y_inferior)
+        if( activationResources != ActivationType.None)
         {
-            return y_inferior;
+            // get sensor data
+            resouceAngle = resourcesDetector.GetAngleToClosestResource();
+
+            // testes de limiares de x
+            if (resourcesDetector.strength > x_superior || resourcesDetector.strength < x_inferior)
+            {
+                resourceValue = 0;
+            }
+            else
+            {
+                // receber função de output
+                switch (activationResources)
+                {
+                    case ActivationType.Linear:
+                        resourceValue = resourcesDetector.GetLinearOuput();
+                        break;
+                    case ActivationType.Gaussian:
+                        resourceValue = resourcesDetector.GetGaussianOutput();
+                        break;
+                    case ActivationType.LogaritmNegative:
+                        resourceValue = resourcesDetector.GetLogaritmicOutput();
+                        break;
+                }
+            }
+
+            // testar limites de y
+            if (resourceValue < y_inferior)
+            {
+                resourceValue = y_inferior;
+            }
+            else if(resourceValue > y_superior)
+            {
+                resourceValue = y_superior;
+            }
+
+            // Se weightResource = 0, não se aplica
+            if(weightResource > 0)
+            {
+                resourceValue *= weightResource;
+            }
+
+            applyForce(resouceAngle, resourceValue); // go towards
         }
-        else if (output > y_superior)
+
+        if (activationBlocks != ActivationType.None)
         {
-            return y_superior;
+            // get sensor data
+            wallAngle = blockDetector.GetAngleToClosestObstacle();
+
+            // testes de limiares de x
+            if (blockDetector.strength > x_superior || blockDetector.strength < x_inferior)
+            {
+                wallValue = 0;
+            }
+            else
+            {
+                // receber função de output
+                switch (activationBlocks)
+                {
+                    case ActivationType.Linear:
+                        wallValue = blockDetector.GetLinearOuput();
+                        break;
+                    case ActivationType.Gaussian:
+                        wallValue = blockDetector.GetGaussianOutput();
+                        break;
+                    case ActivationType.LogaritmNegative:
+                        wallValue = blockDetector.GetLogaritmicOutput();
+                        break;
+                }
+            }
+
+            // testar limites de y
+            if (wallValue < y_inferior)
+            {
+                wallValue = y_inferior;
+            }
+            else if (wallValue > y_superior)
+            {
+                wallValue = y_superior;
+            }
+
+            // Se weightResource = 0, não se aplica
+            if (weightWall > 0)
+            {
+                wallValue *= weightWall;
+            }
+
+            applyForce(wallAngle + 180, wallValue); // go towards
         }
-        return output;
+
     }
 
 }

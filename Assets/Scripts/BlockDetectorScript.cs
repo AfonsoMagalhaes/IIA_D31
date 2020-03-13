@@ -6,8 +6,8 @@ using UnityEngine;
 public class BlockDetectorScript : MonoBehaviour
 {
 
-    public float angleOfSensors = 10f;
-    public float rangeOfSensors = 10f;
+    public float angleOfSensors;
+    public float rangeOfSensors;
     protected Vector3 initialTransformUp;
     protected Vector3 initialTransformFwd;
     public float strength;
@@ -15,7 +15,7 @@ public class BlockDetectorScript : MonoBehaviour
     public int numObjects;
     public bool debugMode;
 
-    // Função Gaussiana
+    // Função Gaussiana - parâmetros
     public float sigma_block;
     public float micro_block;
 
@@ -59,8 +59,7 @@ public class BlockDetectorScript : MonoBehaviour
     {
         float v1 = strength - micro_block;
         float v2 = 0.5f * ((v1 * v1) / (sigma_block * sigma_block));
-        float a = 1.0f / (sigma_block * (float)Math.Sqrt(2 * Math.PI));
-        float gaussian = a * (float)Math.Exp(-v2);
+        float gaussian = (float)Math.Exp(-v2);
         return gaussian;
     }
 

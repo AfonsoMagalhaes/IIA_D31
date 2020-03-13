@@ -112,12 +112,8 @@ MonoBehaviour:
   angle: 0
   numObjects: 0
   debug_mode: 1
-  sigma_resource: 0.12
-  micro_resource: 0.05
-  x_resource_superior: 100
-  x_resource_inferior: 0
-  y_resource_superior: 100
-  y_resource_inferior: 0
+  sigma_resource: 0.1
+  micro_resource: 0.1
 --- !u!1 &3965723576953268335
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +251,10 @@ MonoBehaviour:
   weightWall: 0.5
   wallValue: 0
   wallAngle: 0
+  x_superior: 0
+  x_inferior: 0
+  y_superior: 0
+  y_inferior: 0
 --- !u!1 &4008591218284894329
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,10 +369,6 @@ MonoBehaviour:
   debugMode: 1
   sigma_block: 0.12
   micro_block: 0.5
-  x_block_superior: 100
-  x_block_inferior: 0
-  y_block_superior: 100
-  y_block_inferior: 0
 --- !u!1 &8808777386705767494
 GameObject:
   m_ObjectHideFlags: 0

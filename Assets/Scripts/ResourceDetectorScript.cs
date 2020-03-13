@@ -6,8 +6,8 @@ using UnityEngine;
 public class ResourceDetectorScript : MonoBehaviour
 {
 
-    public float angleOfSensors = 5f;
-    public float rangeOfSensors = 30f;
+    public float angleOfSensors;
+    public float rangeOfSensors;
     protected Vector3 initialTransformUp;
     protected Vector3 initialTransformFwd;
     public float strength;
@@ -58,8 +58,7 @@ public class ResourceDetectorScript : MonoBehaviour
     {
         float v1 = strength - micro_resource;
         float v2 = 0.5f * ((v1 * v1) / (sigma_resource * sigma_resource));
-        float a = 1.0f / (sigma_resource * (float)Math.Sqrt(2 * Math.PI));
-        float gaussian = a * (float)Math.Exp(-v2);
+        float gaussian = (float)Math.Exp(-v2);
         return gaussian;
     }
 
