@@ -1648,12 +1648,12 @@ PrefabInstance:
     - target: {fileID: 1022615238940490695, guid: b606527f8af28664a894844f3f526637,
         type: 3}
       propertyPath: y_superior
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1022615238940490695, guid: b606527f8af28664a894844f3f526637,
         type: 3}
       propertyPath: x_superior
-      value: 10
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1022615238940490695, guid: b606527f8af28664a894844f3f526637,
         type: 3}
@@ -1664,6 +1664,16 @@ PrefabInstance:
         type: 3}
       propertyPath: weightWall
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022615238940490695, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: activationResources
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022615238940490695, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: activationBlocks
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2755946962124381607, guid: b606527f8af28664a894844f3f526637,
         type: 3}
@@ -1724,6 +1734,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637197663032795224, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: rangeOfSensors
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314612682239532039, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: rangeOfSensors
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314612682239532039, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: sigma_resource
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7314612682239532039, guid: b606527f8af28664a894844f3f526637,
+        type: 3}
+      propertyPath: micro_resource
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8831919988329666845, guid: b606527f8af28664a894844f3f526637,
         type: 3}

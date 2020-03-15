@@ -29,7 +29,7 @@ public class LinearRobotUnitBehaviour : RobotUnit
     void Update()
     {
 
-        if( activationResources != ActivationType.None)
+        if( activationResources != ActivationType.None && resourcesGathered < maxObjects)
         {
             // get sensor data
             resourceAngle = resourcesDetector.GetAngleToClosestResource();
@@ -78,7 +78,7 @@ public class LinearRobotUnitBehaviour : RobotUnit
             }  
         }
 
-        if (activationBlocks != ActivationType.None)
+        if (activationBlocks != ActivationType.None && (resourcesGathered < maxObjects || blockDetector.strength > 0.4))
         {
             // get sensor data
             wallAngle = blockDetector.GetAngleToClosestObstacle();
